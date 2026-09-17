@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/Footer";
@@ -7,6 +8,13 @@ import { noteDetails, notes } from "@/lib/content";
 
 export function generateStaticParams() {
   return notes.map(({ slug }) => ({ slug }));
+}
+
+export async function generateMetadata({ params }: PageProps<"/notes/[slug]">): Promise<Metadata> {
+  const { slug } = await params;
+  const note = notes.find((item) => item.slug === slug);
+
+  return { title: note ? `${note.title} — Bobby Liu` : "Note — Bobby Liu" };
 }
 
 export default async function NotePage({ params }: PageProps<"/notes/[slug]">) {
@@ -37,9 +45,6 @@ export default async function NotePage({ params }: PageProps<"/notes/[slug]">) {
 
         <MediaGallery items={note.media} heading="Visual reference" />
 
-        <a className="text-link source-link" href={note.original} target="_blank" rel="noreferrer">
-          View the original source notes ↗
-        </a>
       </article>
       <Footer />
     </main>

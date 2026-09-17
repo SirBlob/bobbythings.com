@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/Footer";
@@ -7,6 +8,13 @@ import { projectDetails, projectMedia, projects } from "@/lib/content";
 
 export function generateStaticParams() {
   return projects.map(({ slug }) => ({ slug }));
+}
+
+export async function generateMetadata({ params }: PageProps<"/work/[slug]">): Promise<Metadata> {
+  const { slug } = await params;
+  const project = projects.find((item) => item.slug === slug);
+
+  return { title: project ? `${project.title} — Bobby Liu` : "Project — Bobby Liu" };
 }
 
 export default async function ProjectPage({ params }: PageProps<"/work/[slug]">) {
@@ -58,7 +66,6 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
 
         <div className="detail-actions">
           <a className="button" href={project.github} target="_blank" rel="noreferrer">View the code ↗</a>
-          <a className="text-link" href={project.original} target="_blank" rel="noreferrer">Original Wix write-up ↗</a>
         </div>
       </article>
       <Footer />

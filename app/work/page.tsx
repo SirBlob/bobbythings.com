@@ -28,6 +28,7 @@ export default function WorkPage() {
               description={project.summary}
               tags={[...project.tags]}
               href={`/work/${project.slug}`}
+              headingLevel="h2"
             />
           ))}
         </div>

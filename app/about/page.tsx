@@ -16,6 +16,12 @@ export default function AboutPage() {
           documenting what the process taught me.
         </p>
         <p>
+          Recently, I’ve also started exploring 3D printing and practical uses
+          of AI. I’m interested in how both can shorten the path from an idea to
+          something testable—whether that is a physical prototype, an automated
+          workflow, or a clearer way to investigate a technical problem.
+        </p>
+        <p>
           This site is both a portfolio and a working notebook. It collects the
           tools I build, the security concepts I study, and the improvements I
           would make the next time around.
