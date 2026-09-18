@@ -23,6 +23,12 @@
 
 .mark span { color: var(--accent); }
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.8rem, 2vw, 1.5rem);
+}
+
 .navList {
   list-style: none;
   display: flex;
@@ -63,5 +69,7 @@
 
 @media (max-width: 520px) {
   .header { height: 64px; padding-inline: 18px; }
-  .navList { gap: 0.9rem; font-size: 0.76rem; }
+  .mark { font-size: 0.78rem; }
+  .actions { gap: 0.65rem; }
+  .navList { gap: 0.72rem; font-size: 0.72rem; }
 }
