@@ -5,6 +5,7 @@
   --text: #f2f0e9;
   --muted: #a5a6ad;
   --accent: #59a8ff;
+  --accent-contrast: #111820;
   --accent-soft: rgba(89, 168, 255, 0.13);
   --line: rgba(242, 240, 233, 0.11);
   --article-surface: rgba(23, 25, 30, 0.68);
@@ -25,6 +26,7 @@
   --text: #20242a;
   --muted: #646971;
   --accent: #176fc1;
+  --accent-contrast: #fff;
   --accent-soft: rgba(23, 111, 193, 0.11);
   --line: rgba(32, 36, 42, 0.15);
   --article-surface: rgba(235, 231, 223, 0.72);

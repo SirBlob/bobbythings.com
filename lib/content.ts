@@ -6,11 +6,47 @@ export const projects = [
 ] as const;
 
 export const notes = [
+  { slug: "basics-of-ai", title: "Basics of AI", summary: "A layered guide to AI fundamentals, agents, systems, and governance with general and technical views.", points: ["AI basics", "Agents", "Systems", "Governance"], body: "A visual reference for core AI concepts, how agents organize work, and how AI systems connect models, tools, governance, and security.", media: [] },
   { slug: "nist-800-37", title: "NIST SP 800-37", summary: "The Risk Management Framework and its role in integrating security and privacy into the system development life cycle.", points: ["Prepare", "Categorize", "Select", "Implement", "Assess", "Authorize", "Monitor"], body: "NIST SP 800-37 describes a repeatable process for managing organizational and system risk. It begins with preparation, uses impact to categorize a system, selects and implements appropriate controls, assesses whether they work, authorizes the remaining risk, and continuously monitors change.", media: [{ src: "/media/notes/nist-800-37/rmf-overview.png", alt: "NIST Risk Management Framework overview", caption: "Risk Management Framework overview" }, { src: "/media/notes/nist-800-37/prepare-organization.png", alt: "NIST RMF organization-level preparation tasks", caption: "Organization-level preparation tasks" }, { src: "/media/notes/nist-800-37/prepare-system.png", alt: "NIST RMF system-level preparation tasks", caption: "System-level preparation tasks" }] },
   { slug: "nist-800-53", title: "NIST SP 800-53", summary: "A catalog of security and privacy controls for protecting systems, organizations, and missions.", points: ["Control families", "Security controls", "Privacy controls", "Control selection"], body: "NIST SP 800-53 provides a structured catalog of controls that organizations can select and tailor to address security and privacy risk. It gives teams a shared vocabulary for planning, implementing, and assessing safeguards.", media: [{ src: "/media/notes/nist-800-53/control-families.png", alt: "NIST SP 800-53 security and privacy control families", caption: "NIST SP 800-53 control families" }] },
   { slug: "cve-cvss", title: "CVE / CVSS", summary: "How vulnerabilities are identified, scored, prioritized, remediated, and verified.", points: ["Discover", "Prioritize", "Assess", "Report", "Remediate", "Verify"], body: "CVE gives publicly known vulnerabilities consistent identifiers. CVSS provides a standard way to describe their severity. Together they help teams communicate about weaknesses, prioritize action, and track remediation through the vulnerability management life cycle.", media: [{ src: "/media/notes/cve-cvss/vulnerability-cycle.png", alt: "Vulnerability management life cycle flowchart", caption: "Vulnerability management life cycle" }, { src: "/media/notes/cve-cvss/vulnerability-cycle-summary.png", alt: "Compact vulnerability management life cycle reference", caption: "Vulnerability life cycle summary" }, { src: "/media/notes/cve-cvss/cve.png", alt: "CVE identifier structure diagram", caption: "Common Vulnerabilities and Exposures" }, { src: "/media/notes/cve-cvss/cvss.png", alt: "CVSS severity and base score chart", caption: "CVSS severity ratings and base scores" }] },
   { slug: "mitre-attack", title: "MITRE ATT&CK", summary: "A common knowledge base for adversary tactics, techniques, and procedures observed in real attacks.", points: ["Tactics", "Techniques", "Procedures", "Detection", "Threat modeling"], body: "MITRE ATT&CK organizes adversary behavior across the phases of an attack. Teams use it to model threats, evaluate security tools, develop detections, prioritize investments, and exchange information using a shared language.", media: [{ src: "/media/notes/mitre-attack/matrix.png", alt: "MITRE ATT&CK Enterprise tactics and techniques matrix", caption: "MITRE ATT&CK Enterprise matrix" }] },
   { slug: "owasp-top-10", title: "OWASP Top 10", summary: "A widely used awareness guide to the most significant categories of web application security risk.", points: ["Web applications", "Common weaknesses", "Risk awareness", "Secure development"], body: "The OWASP Top 10 helps developers and security teams recognize common classes of web application weakness. OWASP also publishes dedicated guidance for APIs and mobile applications, where the threats and defensive priorities differ.", media: [{ src: "/media/notes/owasp-top-10/overview.jpg", alt: "OWASP Top 10 web application security overview", caption: "OWASP Top 10 overview" }] },
+] as const;
+
+export const aiGuideTopics = [
+  {
+    title: "AI Basics",
+    summary: "Core terminology, how machine learning and generative AI relate, and how models train, infer, retrieve context, and produce answers.",
+    general: { src: "/media/notes/basics-of-ai/general-basics.png", alt: "Plain-language AI basics reference diagram" },
+    technical: { src: "/media/notes/basics-of-ai/technical-basics.png", alt: "Technical AI basics reference diagram" },
+    references: [
+      { label: "Google — Machine Learning Glossary", href: "https://developers.google.com/machine-learning/glossary/" },
+      { label: "IBM — AI and RAG", href: "https://www.ibm.com/think/topics/retrieval-augmented-generation" },
+    ],
+  },
+  {
+    title: "AI Agents",
+    summary: "How a model, its surrounding harness, tools, roles, tasks, and limits work together to complete a goal.",
+    general: { src: "/media/notes/basics-of-ai/general-agents.png", alt: "Plain-language AI agents reference diagram" },
+    technical: { src: "/media/notes/basics-of-ai/technical-agents.png", alt: "Technical AI agents reference diagram" },
+    references: [
+      { label: "Anthropic — Agent Design", href: "https://www.anthropic.com/engineering/building-effective-agents" },
+      { label: "OpenAI — Codex Harness", href: "https://openai.com/index/unlocking-the-codex-harness/" },
+      { label: "Anthropic — Claude Agent SDK", href: "https://www.anthropic.com/news/apple-xcode-claude-agent-sdk" },
+    ],
+  },
+  {
+    title: "AI Systems & Governance",
+    summary: "Training stages, context and token cost, MCP connections, configuration, oversight, and security controls around AI systems.",
+    general: { src: "/media/notes/basics-of-ai/general-systems.png", alt: "Plain-language AI systems and governance reference diagram" },
+    technical: { src: "/media/notes/basics-of-ai/technical-systems.png", alt: "Technical AI systems and governance reference diagram" },
+    references: [
+      { label: "TOML — Specification", href: "https://toml.io/en/" },
+      { label: "MCP — Documentation", href: "https://modelcontextprotocol.io/" },
+      { label: "Microsoft — Purview", href: "https://learn.microsoft.com/en-us/purview/purview" },
+    ],
+  },
 ] as const;
 
 export type ContentSection = {

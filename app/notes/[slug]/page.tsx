@@ -3,8 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { AiLearningGuide } from "@/components/AiLearningGuide";
 import { MediaGallery } from "@/components/MediaGallery";
-import { noteDetails, notes } from "@/lib/content";
+import { aiGuideTopics, noteDetails, notes } from "@/lib/content";
 
 export function generateStaticParams() {
   return notes.map(({ slug }) => ({ slug }));
@@ -33,17 +34,23 @@ export default async function NotePage({ params }: PageProps<"/notes/[slug]">) {
         <h1>{note.title}</h1>
         <p className="lead">{note.summary}</p>
 
-        <div className="article-sections">
-          {details.map((section) => (
-            <section key={section.heading}>
-              <h2>{section.heading}</h2>
-              {section.paragraphs?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-              {section.bullets && <ul>{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul>}
-            </section>
-          ))}
-        </div>
+        {note.slug === "basics-of-ai" ? (
+          <AiLearningGuide topics={aiGuideTopics} />
+        ) : (
+          <>
+            <div className="article-sections">
+              {details.map((section) => (
+                <section key={section.heading}>
+                  <h2>{section.heading}</h2>
+                  {section.paragraphs?.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                  {section.bullets && <ul>{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul>}
+                </section>
+              ))}
+            </div>
 
-        <MediaGallery items={note.media} heading="Visual reference" />
+            <MediaGallery items={note.media} heading="Visual reference" />
+          </>
+        )}
 
       </article>
       <Footer />
