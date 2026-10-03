@@ -17,7 +17,11 @@
 .nav > span { flex: 0 0 auto; color: var(--muted); font: .7rem var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
 .nav > div { display: flex; min-width: 0; padding: .2rem; overflow-x: auto; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); scrollbar-width: thin; }
 .nav a { flex: 0 0 auto; padding: .6rem .7rem; border-radius: 7px; color: var(--muted); font: .7rem var(--font-mono); white-space: nowrap; }
-.nav a:hover, .nav a:focus-visible, .nav a.active { background: var(--accent); color: var(--accent-contrast); }
+.nav a:focus-visible, .nav a.active { background: var(--accent); color: var(--accent-contrast); }
+
+@media (hover: hover) {
+  .nav a:hover { background: var(--accent); color: var(--accent-contrast); }
+}
 
 .sections { display: grid; gap: 3.5rem; min-width: 0; }
 .section { min-width: 0; scroll-margin-top: 10rem; }
@@ -56,6 +60,7 @@
   .section > header > p:last-child { grid-column: 1; grid-row: auto; }
   .nav { top: 72px; align-items: center; flex-direction: column; gap: .5rem; }
   .nav > div { width: 100%; }
+  .nav a:not(.active):hover { background: transparent; color: var(--muted); }
   .control { gap: .8rem; padding: 1.2rem; }
   .references { grid-template-columns: 1fr; }
   .recordFields { grid-template-columns: 1fr; }
