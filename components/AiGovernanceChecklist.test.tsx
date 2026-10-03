@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { AiGovernanceChecklist } from "./AiGovernanceChecklist";
 
 const sections = [
@@ -58,5 +58,21 @@ describe("AiGovernanceChecklist", () => {
 
     expect(chatgpt).toHaveAttribute("aria-current", "location");
     expect(identity).not.toHaveAttribute("aria-current");
+  });
+
+  it("moves the horizontal navigation to keep the active section visible", async () => {
+    const user = userEvent.setup();
+    const scrollTo = vi.fn();
+    HTMLElement.prototype.scrollTo = scrollTo;
+    const twoSections = [
+      sections[0],
+      { ...sections[0], id: "chatgpt", title: "ChatGPT" },
+    ];
+
+    render(<AiGovernanceChecklist sections={twoSections} reviewed="October 2, 2026" />);
+    scrollTo.mockClear();
+    await user.click(screen.getByRole("link", { name: "ChatGPT" }));
+
+    await waitFor(() => expect(scrollTo).toHaveBeenCalled());
   });
 });

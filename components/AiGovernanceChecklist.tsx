@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./AiGovernanceChecklist.module.css";
 
 export type GovernanceControl = {
@@ -25,6 +25,7 @@ type Props = {
 
 export function AiGovernanceChecklist({ sections, reviewed }: Props) {
   const [activeSection, setActiveSection] = useState(sections[0]?.id ?? "");
+  const navItemsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function updateActiveSection() {
@@ -54,6 +55,22 @@ export function AiGovernanceChecklist({ sections, reviewed }: Props) {
     };
   }, [sections]);
 
+  useEffect(() => {
+    const container = navItemsRef.current;
+    const activeLink = container?.querySelector<HTMLElement>('a[aria-current="location"]');
+
+    if (!container || !activeLink) return;
+
+    const left = activeLink.offsetLeft - (container.clientWidth - activeLink.offsetWidth) / 2;
+    const targetLeft = Math.max(0, left);
+
+    if (typeof container.scrollTo === "function") {
+      container.scrollTo({ left: targetLeft, behavior: "smooth" });
+    } else {
+      container.scrollLeft = targetLeft;
+    }
+  }, [activeSection]);
+
   return (
     <div className={styles.guide}>
       <aside className={styles.usage} aria-labelledby="how-to-use">
@@ -73,7 +90,7 @@ export function AiGovernanceChecklist({ sections, reviewed }: Props) {
 
       <nav className={styles.nav} aria-label="Governance checklist sections">
         <span>On this page</span>
-        <div>
+        <div ref={navItemsRef}>
           {sections.map((section) => (
             <a
               className={activeSection === section.id ? styles.active : undefined}
