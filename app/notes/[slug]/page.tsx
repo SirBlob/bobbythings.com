@@ -4,8 +4,9 @@ import { notFound } from "next/navigation";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { AiLearningGuide } from "@/components/AiLearningGuide";
+import { AiGovernanceChecklist } from "@/components/AiGovernanceChecklist";
 import { MediaGallery } from "@/components/MediaGallery";
-import { aiGuideTopics, noteDetails, notes } from "@/lib/content";
+import { aiGovernanceSections, aiGuideTopics, noteDetails, notes } from "@/lib/content";
 
 export function generateStaticParams() {
   return notes.map(({ slug }) => ({ slug }));
@@ -28,7 +29,7 @@ export default async function NotePage({ params }: PageProps<"/notes/[slug]">) {
   return (
     <main>
       <Header />
-      <article className="detail note-detail">
+      <article className={`detail note-detail${note.slug === "enterprise-ai-security-checklist" ? " governance-detail" : ""}`}>
         <Link className="back-link" href="/notes">← Security notebook</Link>
         <p className="eyebrow">Reference note</p>
         <h1>{note.title}</h1>
@@ -36,6 +37,8 @@ export default async function NotePage({ params }: PageProps<"/notes/[slug]">) {
 
         {note.slug === "basics-of-ai" ? (
           <AiLearningGuide topics={aiGuideTopics} />
+        ) : note.slug === "enterprise-ai-security-checklist" ? (
+          <AiGovernanceChecklist sections={aiGovernanceSections} reviewed="October 2, 2026" />
         ) : (
           <>
             <div className="article-sections">

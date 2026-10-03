@@ -7,6 +7,7 @@ export const projects = [
 
 export const notes = [
   { slug: "basics-of-ai", title: "Basics of AI", summary: "A layered guide to AI fundamentals, agents, systems, and governance with general and technical views.", points: ["AI basics", "Agents", "Systems", "Governance"], body: "A visual reference for core AI concepts, how agents organize work, and how AI systems connect models, tools, governance, and security.", media: [] },
+  { slug: "enterprise-ai-security-checklist", title: "Enterprise AI Security Checklist", summary: "A practical governance baseline for identity, data handling, integrations, retention, and high-impact AI actions.", points: ["Identity", "Vendor controls", "Integrations", "Governance"], body: "Research into enterprise AI security settings across Claude, ChatGPT, Microsoft 365 Copilot, Gemini, and organization-wide policy.", media: [] },
   { slug: "nist-800-37", title: "NIST SP 800-37", summary: "The Risk Management Framework and its role in integrating security and privacy into the system development life cycle.", points: ["Prepare", "Categorize", "Select", "Implement", "Assess", "Authorize", "Monitor"], body: "NIST SP 800-37 describes a repeatable process for managing organizational and system risk. It begins with preparation, uses impact to categorize a system, selects and implements appropriate controls, assesses whether they work, authorizes the remaining risk, and continuously monitors change.", media: [{ src: "/media/notes/nist-800-37/rmf-overview.png", alt: "NIST Risk Management Framework overview", caption: "Risk Management Framework overview" }, { src: "/media/notes/nist-800-37/prepare-organization.png", alt: "NIST RMF organization-level preparation tasks", caption: "Organization-level preparation tasks" }, { src: "/media/notes/nist-800-37/prepare-system.png", alt: "NIST RMF system-level preparation tasks", caption: "System-level preparation tasks" }] },
   { slug: "nist-800-53", title: "NIST SP 800-53", summary: "A catalog of security and privacy controls for protecting systems, organizations, and missions.", points: ["Control families", "Security controls", "Privacy controls", "Control selection"], body: "NIST SP 800-53 provides a structured catalog of controls that organizations can select and tailor to address security and privacy risk. It gives teams a shared vocabulary for planning, implementing, and assessing safeguards.", media: [{ src: "/media/notes/nist-800-53/control-families.png", alt: "NIST SP 800-53 security and privacy control families", caption: "NIST SP 800-53 control families" }] },
   { slug: "cve-cvss", title: "CVE / CVSS", summary: "How vulnerabilities are identified, scored, prioritized, remediated, and verified.", points: ["Discover", "Prioritize", "Assess", "Report", "Remediate", "Verify"], body: "CVE gives publicly known vulnerabilities consistent identifiers. CVSS provides a standard way to describe their severity. Together they help teams communicate about weaknesses, prioritize action, and track remediation through the vulnerability management life cycle.", media: [{ src: "/media/notes/cve-cvss/vulnerability-cycle.png", alt: "Vulnerability management life cycle flowchart", caption: "Vulnerability management life cycle" }, { src: "/media/notes/cve-cvss/vulnerability-cycle-summary.png", alt: "Compact vulnerability management life cycle reference", caption: "Vulnerability life cycle summary" }, { src: "/media/notes/cve-cvss/cve.png", alt: "CVE identifier structure diagram", caption: "Common Vulnerabilities and Exposures" }, { src: "/media/notes/cve-cvss/cvss.png", alt: "CVSS severity and base score chart", caption: "CVSS severity ratings and base scores" }] },
@@ -45,6 +46,117 @@ export const aiGuideTopics = [
       { label: "TOML — Specification", href: "https://toml.io/en/" },
       { label: "MCP — Documentation", href: "https://modelcontextprotocol.io/" },
       { label: "Microsoft — Purview", href: "https://learn.microsoft.com/en-us/purview/purview" },
+    ],
+  },
+] as const;
+
+export const aiGovernanceSections = [
+  {
+    id: "identity",
+    title: "Identity",
+    scope: "Controls that apply across approved enterprise AI services and the identity systems used to access them.",
+    controls: [
+      { setting: "Personal-account use for company work", reason: "Keeps company data within approved workspaces and organizational oversight.", status: "baseline", area: "Identity policy" },
+      { setting: "Authentication paths that bypass SSO or MFA", reason: "Prevents weaker sign-in methods from undermining centralized authentication. Preserve controlled emergency access.", status: "baseline", area: "Identity provider" },
+      { setting: "Unrestricted user consent to third-party applications", reason: "Prevents users from granting unreviewed access to corporate email, files, and other sensitive data.", status: "baseline", area: "Application consent" },
+      { setting: "Stale accounts, sessions, and tokens", reason: "Reduces opportunities to exploit abandoned access after departures or role changes.", status: "baseline", area: "Access lifecycle" },
+      { setting: "Unnecessary standing administrator access", reason: "Limits the damage caused by compromised accounts or administrative mistakes.", status: "baseline", area: "Privileged access" },
+    ],
+    references: [
+      { label: "Microsoft Entra — User and administrator consent", href: "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/user-admin-consent-overview" },
+      { label: "Microsoft Entra — Configure user consent", href: "https://learn.microsoft.com/azure/active-directory/manage-apps/configure-user-consent?pivots=portal" },
+    ],
+  },
+  {
+    id: "claude",
+    title: "Claude",
+    scope: "Claude organization settings, project sharing, connectors, memory, and Claude Code permissions.",
+    controls: [
+      { setting: "Optional model-training or data-sharing enrollment", reason: "Prevents voluntary sharing beyond approved commercial data protections. Commercial data is not used for training by default.", status: "baseline", area: "Data controls" },
+      { setting: "Memory and past-chat search", reason: "Reduces reuse of sensitive information across conversations. Review existing stored information separately.", status: "conditional", area: "Memory" },
+      { setting: "Unnecessary broad project sharing", reason: "Limits internal exposure of project content. Claude's Public projects setting concerns organization-wide visibility.", status: "baseline", area: "Sharing" },
+      { setting: "Unapproved connectors and unnecessary write or delete actions", reason: "Reduces third-party data exposure and unauthorized changes to connected systems.", status: "baseline", area: "Connectors" },
+      { setting: "Claude Code permission-bypass mode", reason: "Preserves permission checks before commands and tools execute.", status: "baseline", area: "Developer tooling" },
+    ],
+    references: [
+      { label: "Anthropic — Default training protections", href: "https://support.claude.com/en/articles/11174108-about-the-development-partner-program" },
+      { label: "Claude — Chat search and memory", href: "https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context" },
+      { label: "Claude — Project sharing", href: "https://support.claude.com/en/articles/9927533-control-project-sharing-for-your-organization" },
+      { label: "Claude — Connectors and permissions", href: "https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities" },
+      { label: "Claude Code — Permission controls", href: "https://code.claude.com/docs/en/permissions" },
+    ],
+  },
+  {
+    id: "chatgpt",
+    title: "ChatGPT",
+    scope: "ChatGPT Enterprise workspace controls for data use, memory, sharing, apps, connectors, and external actions.",
+    controls: [
+      { setting: "Optional model-improvement sharing, where applicable", reason: "Prevents optional contribution of business information to training. Enterprise data is excluded from training by default.", status: "baseline", area: "Data controls" },
+      { setting: "Persistent memory", reason: "Reduces storage and reuse of sensitive context across conversations. Disabling memory does not substitute for reviewing stored information.", status: "conditional", area: "Memory" },
+      { setting: "Unnecessary sharing of chats, files, and GPTs", reason: "Limits exposure beyond intended audiences. Review existing shares separately.", status: "baseline", area: "Sharing" },
+      { setting: "Unapproved apps, plugins, and MCP connections", reason: "Prevents unreviewed integrations from accessing company data or connected systems.", status: "baseline", area: "Integrations" },
+      { setting: "Unnecessary external actions and unrestricted action destinations", reason: "Reduces data transfers to unapproved services and consequential actions without appropriate oversight.", status: "baseline", area: "Actions" },
+    ],
+    references: [
+      { label: "OpenAI — Enterprise sharing and data protections", href: "https://learn.chatgpt.com/docs/enterprise/chatgpt-space" },
+      { label: "OpenAI — Memory controls", href: "https://learn.chatgpt.com/docs/customization/memories" },
+      { label: "OpenAI — GPT sharing and action domains", href: "https://learn.chatgpt.com/docs/enterprise/gpts-and-sharing" },
+      { label: "OpenAI — Apps and connectors", href: "https://learn.chatgpt.com/docs/enterprise/apps-and-connectors" },
+    ],
+  },
+  {
+    id: "microsoft-copilot",
+    title: "Microsoft 365 Copilot",
+    scope: "Workplace Copilot and Copilot Chat controls. This section does not cover GitHub Copilot.",
+    controls: [
+      { setting: "Personal or consumer Copilot use for company data", reason: "Keeps business use within the approved work-account experience and applicable enterprise protections.", status: "baseline", area: "Access policy" },
+      { setting: "Allow web search in Copilot", reason: "Prevents generated search queries from being sent to Bing for sensitive workflows; disabling it also removes web grounding.", status: "conditional", area: "Admin center" },
+      { setting: "Unapproved agents and extensions", reason: "Reduces exposure to unreviewed functionality, integrations, and data access.", status: "baseline", area: "Agent management" },
+      { setting: "Unrestricted consent to Microsoft Graph and third-party permissions", reason: "Prevents excessive access to organizational information and actions.", status: "baseline", area: "Application consent" },
+      { setting: "Excessive SharePoint and OneDrive permissions", reason: "Reduces the sensitive content Copilot can surface through users' existing access. Fix permissions at the source.", status: "baseline", area: "Data governance" },
+    ],
+    references: [
+      { label: "Microsoft — Manage Copilot Chat", href: "https://learn.microsoft.com/en-us/copilot/manage" },
+      { label: "Microsoft — Web-search privacy and controls", href: "https://learn.microsoft.com/en-us/copilot/microsoft-365/manage-public-web-access" },
+      { label: "Microsoft — Manage Copilot agents", href: "https://learn.microsoft.com/en-gb/microsoft-365/admin/manage/manage-copilot-agents-integrated-apps?view=o365-worldwide" },
+      { label: "Microsoft Entra — Application consent", href: "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/user-admin-consent-overview" },
+      { label: "Microsoft — Copilot Search permissions", href: "https://learn.microsoft.com/en-us/microsoft-365/copilot/microsoft-365-copilot-search-faq" },
+    ],
+  },
+  {
+    id: "gemini",
+    title: "Gemini / Google Workspace",
+    scope: "Managed Workspace access, conversation history, connected apps, consumer activity, and Gemini Live capture permissions.",
+    controls: [
+      { setting: "Gemini access for unapproved users or organizational units", reason: "Limits deployment to approved users and managed Workspace services.", status: "baseline", area: "Workspace admin" },
+      { setting: "Gemini conversation history", reason: "Reduces saved conversation history where retention requirements permit. History off does not mean zero retention or immediate deletion of existing history.", status: "conditional", area: "Retention" },
+      { setting: "Unnecessary Connected Apps", reason: "Limits access to Gmail, Drive, Calendar, GitHub, and other connected services.", status: "baseline", area: "Connected Apps" },
+      { setting: "Consumer Keep Activity for permitted personal-account use", reason: "Limits future consumer activity use for model improvement. Managed Workspace accounts follow different controls.", status: "baseline", area: "Consumer activity" },
+      { setting: "Unnecessary Gemini Live microphone, camera, and screen sharing", reason: "Reduces accidental capture of confidential conversations, surroundings, and on-screen information. Assess recording retention separately.", status: "conditional", area: "Device permissions" },
+    ],
+    references: [
+      { label: "Google Workspace — Service access and history", href: "https://support.google.com/a/answer/14571493" },
+      { label: "Google — Connected Apps for work accounts", href: "https://support.google.com/gemini/answer/14959807" },
+      { label: "Google — Activity settings and Gemini Live", href: "https://support.google.com/gemini/answer/13278892" },
+      { label: "Google — Personalization and model improvement", href: "https://support.google.com/gemini/answer/16836988" },
+    ],
+  },
+  {
+    id: "organization-wide",
+    title: "Organization-wide governance",
+    scope: "Policy controls that apply across vendors. These recommendations synthesize documented capabilities into an organizational security baseline.",
+    controls: [
+      { setting: "Unapproved AI services, browser extensions, and integrations", reason: "Reduces unmanaged AI use and data flows outside approved oversight.", status: "baseline", area: "Approved services" },
+      { setting: "Submission of prohibited sensitive data", reason: "Prevents credentials, secrets, regulated information, and confidential material from entering unauthorized systems.", status: "baseline", area: "Data policy" },
+      { setting: "Autonomous high-impact actions without approved oversight", reason: "Reduces harmful external communications, production changes, payments, access changes, and destructive operations.", status: "baseline", area: "Human oversight" },
+      { setting: "Indefinite retention without documented justification", reason: "Reduces unnecessary accumulation of sensitive information while preserving legal holds and required records.", status: "baseline", area: "Retention policy" },
+      { setting: "Unreviewed activation of new features and expanded permissions", reason: "Prevents new capabilities from introducing unassessed access or data exposure.", status: "baseline", area: "Change management" },
+    ],
+    references: [
+      { label: "OpenAI — Integration approvals and data handling", href: "https://learn.chatgpt.com/docs/enterprise/apps-and-connectors" },
+      { label: "Anthropic — Connector restrictions", href: "https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities" },
+      { label: "Microsoft — Agent administration", href: "https://learn.microsoft.com/en-gb/microsoft-365/admin/manage/manage-copilot-agents-integrated-apps?view=o365-worldwide" },
+      { label: "Google Workspace — Retention controls", href: "https://support.google.com/a/answer/14571493" },
     ],
   },
 ] as const;
